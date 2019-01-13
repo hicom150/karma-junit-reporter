@@ -168,7 +168,7 @@ var JUnitReporter = function (baseReporterDecorator, config, logger, helper, for
     if (!suite || !result) {
       // Make sure we report any error messages to stdout if we are not going
       // to create any XML.  See issue #97 for details.
-      process.stdout.write(allMessages.join() + '\n');
+      process.stdout.write(allMessages.join() + '\n')
 
       return // don't die if browser didn't start
     }
