@@ -35,6 +35,8 @@ var fakeConfig = {
 
 var fakeBaseReporterDecorator = noop
 
+sinon.spy(process.stdout, 'write')
+
 describe('JUnit reporter', function () {
   var reporterModule
   var reporter
@@ -186,6 +188,14 @@ describe('JUnit reporter', function () {
 
     // never pass a null value to XMLAttribute via xmlbuilder attr()
     expect(reporter.onBrowserComplete.bind(reporter, badBrowserResult)).not.to.throw(Error)
+  })
+
+  it('should write errors to stdout when not writting xml', function () {
+    var emptyBrowser = {}
+
+    reporter.onBrowserComplete(emptyBrowser)
+
+    expect(process.stdout.write).to.be.called
   })
 
   it('should safely handle test re-runs triggered by watchers', function () {
